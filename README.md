@@ -71,6 +71,10 @@ Enumerar la política de contraseñas
 
 ![](/images/image_11.png)
 
+# Enumeración del Servidor
+Enumerar información sobre el servidor
+
+![](/images/image_12.png)
 
 
 
