@@ -22,7 +22,6 @@ sudo apt install -y git curl sed xclip gawk coreutils
 # Uso
 ```
 git clone https://github.com/Justice-Reaper/rpcEnum.git
-cd rpcEnum
 chmod +x rpcEnum.sh
 ./rpcEnum.sh
 ```
