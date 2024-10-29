@@ -81,4 +81,4 @@ Autor: Justice-Reaper
 
 Inspiración: Herramienta basada en la creada por Zunder > [https://github.com/rubenza02/rpcenumeration.git](https://github.com/rubenza02/rpcenumeration.git)  
 
-Youtube: Enlace al vídeo de Zunder donde explica la utilidad de su herramienta [https://youtu.be/gC6l4YA3Ue4?si=MFjejjpeVxMlbhjg](https://youtu.be/gC6l4YA3Ue4?si=MFjejjpeVxMlbhjg)
+Youtube: Enlace al vídeo de Zunder donde explica la utilidad de su herramienta > [https://youtu.be/gC6l4YA3Ue4?si=MFjejjpeVxMlbhjg](https://youtu.be/gC6l4YA3Ue4?si=MFjejjpeVxMlbhjg)
