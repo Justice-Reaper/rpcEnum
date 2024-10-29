@@ -13,12 +13,6 @@ Este script en Bash permite escanear de forma cómoda el servicio MSRPC
 - Enumerar información del servidor
 - Imprimir un informe completo con todas las funciones anteriores
 
-# Dependencias
-- Es necesarios instalar las siguientes dependenciales
-```
-sudo apt install -y git curl sed xclip gawk coreutils              
-```
-
 # Uso
 ```
 git clone https://github.com/Justice-Reaper/rpcEnum.git
@@ -27,28 +21,60 @@ chmod +x rpcEnum.sh
 ./rpcEnum.sh
 ```
 
-# Ejemplo
-```
-./HttpProxyPortScanner.sh
+# Panel de Ayuda
+Si usamos el script de forma incorrecta nos saltará un aviso y nos mostrará el panel de ayuda
 
-██╗  ██╗████████╗████████╗██████╗     ██████╗ ██████╗  ██████╗ ██╗  ██╗██╗   ██╗    ██████╗  ██████╗ ██████╗ ████████╗    ███████╗ ██████╗ █████╗ ███╗   ██╗███╗   ██╗███████╗██████╗ 
-██║  ██║╚══██╔══╝╚══██╔══╝██╔══██╗    ██╔══██╗██╔══██╗██╔═══██╗╚██╗██╔╝╚██╗ ██╔╝    ██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝    ██╔════╝██╔════╝██╔══██╗████╗  ██║████╗  ██║██╔════╝██╔══██╗
-███████║   ██║      ██║   ██████╔╝    ██████╔╝██████╔╝██║   ██║ ╚███╔╝  ╚████╔╝     ██████╔╝██║   ██║██████╔╝   ██║       ███████╗██║     ███████║██╔██╗ ██║██╔██╗ ██║█████╗  ██████╔╝
-██╔══██║   ██║      ██║   ██╔═══╝     ██╔═══╝ ██╔══██╗██║   ██║ ██╔██╗   ╚██╔╝      ██╔═══╝ ██║   ██║██╔══██╗   ██║       ╚════██║██║     ██╔══██║██║╚██╗██║██║╚██╗██║██╔══╝  ██╔══██╗
-██║  ██║   ██║      ██║   ██║         ██║     ██║  ██║╚██████╔╝██╔╝ ██╗   ██║       ██║     ╚██████╔╝██║  ██║   ██║       ███████║╚██████╗██║  ██║██║ ╚████║██║ ╚████║███████╗██║  ██║
-╚═╝  ╚═╝   ╚═╝      ╚═╝   ╚═╝         ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝       ╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝       ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝
+![](/images/image_1.png)
 
-Introduce el proxy (ejemplo: http://usuario:contraseña@ip:puerto - http://usuario:contraseña@dominio:puerto - http://ip:puerto - http://dominio:puerto)
-Proxy: http://lance.friedman:o>WJ5-jD<5^m3@10.129.181.242:3128
+# Enumeración de Usuarios
+Utilización de los parámetros -u (username) y -p (password) para proporcionar unas credenciales 
 
-Introduce el objetivo (ejemplo: http://ip - http://dominio - ip - dominio):
-Objetivo: 127.0.0.1
+![](/images/image_2.png)
 
-Introduce hasta que puerto deseas escanear (ejemplo: 65535):
-Puertos: 80
-        [*] Port 22 - OPEN
-        [*] Port 80 - OPEN
+Enumerar sin usar credenciales, es decir con el usuario anonymous 
 
-[+] Escaneo completado, los puertos abiertos han sido guardados en openPortsHttpProxy.txt
-[+] Los puertos han sido copiados en la clipboard
-```
+![](/images/image_3.png)
+
+Otra alternativa sería dejar los campos -u (username) y -p (password) vacíos
+
+![](/images/image_4.png)
+
+Enumerar información sobre los usuario en el despliegue
+
+![](/images/image_5.png)
+
+Enumerar toda la información posible de los usuarios
+
+![](/images/image_6.png)
+
+# Enumeración de Grupos
+Enumerar los grupos y sus descripciones
+
+![](/images/image_7.png)
+
+Enumerar los grupos y los usuarios pertenecientes a cada uno de ellos
+
+![](/images/image_8.png)
+
+# Enumeración de impresoras
+Enumerar las impresoras
+
+![](/images/image_9.png)
+
+# Enumeración Smb
+Enumerar los recursos compartidos por smb
+
+![](/images/image_10.png)
+
+# Enumeración de la Política de Contraseñas
+Enumerar la política de contraseñas
+
+![](/images/image_11.png)
+
+
+
+
+
+
+
+
