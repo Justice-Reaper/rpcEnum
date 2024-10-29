@@ -76,9 +76,7 @@ Enumerar información sobre el servidor
 
 ![](/images/image_12.png)
 
-
-
-
-
-
-
+## Créditos
+Autor: Justice-Reaper
+Inspiración: Herramienta basada en la creada por Zunder > [https://github.com/rubenza02/rpcenumeration.git](https://github.com/rubenza02/rpcenumeration.git)
+Youtube de Zunder: Enlace al vídeo de Zunder donde explica la utilidad de la herramienta [https://youtu.be/gC6l4YA3Ue4?si=MFjejjpeVxMlbhjg](https://youtu.be/gC6l4YA3Ue4?si=MFjejjpeVxMlbhjg)
