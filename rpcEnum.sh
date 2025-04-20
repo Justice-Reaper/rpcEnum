@@ -16,8 +16,8 @@ FUNCTION=""
 
 # Función de ayuda
 function help_panel() {
-    echo -e "\n${blue_bold_colour}[*]${end_colour}${white_bold_colour} Uso: $0 -s <IP_DEL_SERVIDOR> -u <USUARIO> -p <CONTRASEÑA> -f <FUNCION>${end_colour}"
-    echo -e "\n${blue_bold_colour}-h, --help                  ${end_colour}${white_bold_colour}Mostrar esta ayuda${end_colour}"
+    echo -e "\n${green_bold_colour}[*]${end_colour}${white_bold_colour} Uso: $0 -s <IP_DEL_SERVIDOR> -u <USUARIO> -p <CONTRASEÑA> -f <FUNCION>${end_colour}"
+    echo -e "\n${green_bold_colour}-h, --help                  ${end_colour}${white_bold_colour}Mostrar esta ayuda${end_colour}"
     echo -e "${green_bold_colour}-s, --server                ${end_colour}${white_bold_colour}IP del servidor${end_colour}"
     echo -e "${green_bold_colour}-u, --user                  ${end_colour}${white_bold_colour}Usuario${end_colour}"
     echo -e "${green_bold_colour}-p, --password              ${end_colour}${white_bold_colour}Contraseña${end_colour}"
