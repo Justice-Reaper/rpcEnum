@@ -1,5 +1,5 @@
 # RpcEnum
-This Bash script enables convenient scanning of the MSRPC service
+This Bash script allows for convenient enumeration of the MSRPC service
 
 # Features
 - Enumerate domain users
