@@ -1,12 +1,12 @@
 #!/bin/bash
 
-#Colours
-green_bold_colour="\e[0;32m\033[1m"
-end_colour="\033[0m\e[0m"
-red_bold_colour="\e[0;31m\033[1m"
-blue_bold_colour="\e[0;34m\033[1m"
-white_bold_colour="\e[0;37m\033[1m"
-blue_colour="\e[0;34m"
+# Colors
+green_bold_color="\e[0;32m\033[1m"
+end_color="\033[0m\e[0m"
+red_bold_color="\e[0;31m\033[1m"
+blue_bold_color="\e[0;34m\033[1m"
+white_bold_color="\e[0;37m\033[1m"
+blue_color="\e[0;34m"
 
 # Variables
 SERVER_IP=""
@@ -14,28 +14,28 @@ USERNAME=""
 PASSWORD=""
 FUNCTION=""
 
-# Función de ayuda
+# Help function
 function help_panel() {
-    echo -e "\n${green_bold_colour}[*]${end_colour}${white_bold_colour} Uso: $0 -s <IP_DEL_SERVIDOR> -u <USUARIO> -p <CONTRASEÑA> -f <FUNCION>${end_colour}"
-    echo -e "\n${green_bold_colour}-h, --help                  ${end_colour}${white_bold_colour}Mostrar esta ayuda${end_colour}"
-    echo -e "${green_bold_colour}-s, --server                ${end_colour}${white_bold_colour}IP del servidor${end_colour}"
-    echo -e "${green_bold_colour}-u, --user                  ${end_colour}${white_bold_colour}Usuario${end_colour}"
-    echo -e "${green_bold_colour}-p, --password              ${end_colour}${white_bold_colour}Contraseña${end_colour}"
-    echo -e "${green_bold_colour}-f, --function              ${end_colour}${white_bold_colour}Función a ejecutar${end_colour}"
+    echo -e "\n${green_bold_color}[*]${end_color}${white_bold_color} Usage: $0 -s <SERVER_IP> -u <USER> -p <PASSWORD> -f <FUNCTION>${end_color}"
+    echo -e "\n${green_bold_color}-h, --help                  ${end_color}${white_bold_color}Show this help menu${end_color}"
+    echo -e "${green_bold_color}-s, --server                ${end_color}${white_bold_color}Server IP address${end_color}"
+    echo -e "${green_bold_color}-u, --user                  ${end_color}${white_bold_color}User${end_color}"
+    echo -e "${green_bold_color}-p, --password              ${end_color}${white_bold_color}Password${end_color}"
+    echo -e "${green_bold_color}-f, --function              ${end_color}${white_bold_color}Function to execute${end_color}"
 
-    echo -e "\n    ${green_bold_colour}users                   ${end_colour}${white_bold_colour}Enumerar usuarios${end_colour}"
-    echo -e "    ${green_bold_colour}querydispinfo           ${end_colour}${white_bold_colour}Enumerar información sobre usuarios del despliegue${end_colour}"
-    echo -e "    ${green_bold_colour}users_info              ${end_colour}${white_bold_colour}Enumerar información de los usuarios${end_colour}"
-    echo -e "    ${green_bold_colour}groups                  ${end_colour}${white_bold_colour}Enumerar grupos${end_colour}"
-    echo -e "    ${green_bold_colour}groups_and_users        ${end_colour}${white_bold_colour}Enumerar grupos y sus respectivos usuarios${end_colour}"
-    echo -e "    ${green_bold_colour}printers                ${end_colour}${white_bold_colour}Enumerar impresoras${end_colour}"
-    echo -e "    ${green_bold_colour}shares                  ${end_colour}${white_bold_colour}Enumerar recursos compartidos por smb${end_colour}"
-    echo -e "    ${green_bold_colour}password_policy         ${end_colour}${white_bold_colour}Enumerar política de contraseñas${end_colour}"
-    echo -e "    ${green_bold_colour}server_info             ${end_colour}${white_bold_colour}Enumerar información del servidor${end_colour}"
-    echo -e "    ${green_bold_colour}full_report             ${end_colour}${white_bold_colour}Informe completo${end_colour}"
+    echo -e "\n    ${green_bold_color}users                   ${end_color}${white_bold_color}Enumerate users${end_color}"
+    echo -e "    ${green_bold_color}querydispinfo           ${end_color}${white_bold_color}Enumerate deployment users' information${end_color}"
+    echo -e "    ${green_bold_color}users_info              ${end_color}${white_bold_color}Enumerate users' information${end_color}"
+    echo -e "    ${green_bold_color}groups                  ${end_color}${white_bold_color}Enumerate groups${end_color}"
+    echo -e "    ${green_bold_color}groups_and_users        ${end_color}${white_bold_color}Enumerate groups and their members${end_color}"
+    echo -e "    ${green_bold_color}printers                ${end_color}${white_bold_color}Enumerate printers${end_color}"
+    echo -e "    ${green_bold_color}shares                  ${end_color}${white_bold_color}Enumerate SMB shares${end_color}"
+    echo -e "    ${green_bold_color}password_policy         ${end_color}${white_bold_color}Enumerate password policy${end_color}"
+    echo -e "    ${green_bold_color}server_info             ${end_color}${white_bold_color}Enumerate server information${end_color}"
+    echo -e "    ${green_bold_color}full_report             ${end_color}${white_bold_color}Generate full report${end_color}"
 }
 
-# Procesar argumentos
+# Process arguments
 while [[ "$#" -gt 0 ]]; do
     case $1 in
 	-h|--help) help_panel; exit 0 ;;
@@ -43,19 +43,19 @@ while [[ "$#" -gt 0 ]]; do
         -u|--user) USERNAME="$2"; shift ;;
         -p|--password) PASSWORD="$2"; shift ;;
         -f|--function) FUNCTION="$2"; shift ;;
-        *) echo -e "${red_bold_colour}Opción desconocida: $1${end_colour}"; help_panel; exit 1 ;;
+        *) echo -e "${red_bold_color}Unknown option: $1${end_color}"; help_panel; exit 1 ;;
     esac
     shift
 done
 
-# Verificar si se proporcionaron todos los argumentos necesarios
+# Verify required arguments
 if [[ -z "$SERVER_IP" || -z "$FUNCTION" ]]; then
-    echo -e "${red_bold_colour}Error: faltan argumentos${end_colour}"
+    echo -e "${red_bold_color}Error: Missing required arguments${end_color}"
     help_panel
     exit 1
 fi
 
-# Funciones
+# Functions
 function get_max_length() {
     local array=("$@")
     local max_length=$(printf "%s\n" "${array[@]}" | awk '{ print length }' | sort -nr | head -n1)
@@ -128,22 +128,22 @@ function print_content() {
         fi
     fi
 
-    printf "${blue_bold_colour}%-${adjustedLengthFirstArray}s %-${adjustedLengthSecondArray}s %-${adjustedLengthThirdArray}s${end_colour}\n" \
+    printf "${blue_bold_color}%-${adjustedLengthFirstArray}s %-${adjustedLengthSecondArray}s %-${adjustedLengthThirdArray}s${end_color}\n" \
     "$firstTitle" "$secondTitle" "$thirdTitle"
 
-    printf "${blue_bold_colour}%-${adjustedLengthFirstArray}s %-${adjustedLengthSecondArray}s %-${adjustedLengthThirdArray}s${end_colour}\n" \
+    printf "${blue_bold_color}%-${adjustedLengthFirstArray}s %-${adjustedLengthSecondArray}s %-${adjustedLengthThirdArray}s${end_color}\n" \
     "$(printf '%*s' "${maxLengthFirstArray}" '' | tr ' ' '-')" \
     "$(printf '%*s' "${maxLengthSecondArray}" '' | tr ' ' '-')" \
     "$(printf '%*s' "${maxLengthThirdArray}" '' | tr ' ' '-')" \
 
     for ((i = 0; i < ${#firstArray[@]}; i++)); do
-        printf "${green_bold_colour}%-${adjustedLengthFirstArray}s %-${adjustedLengthSecondArray}s %-${adjustedLengthThirdArray}s${end_colour}\n" \
+        printf "${green_bold_color}%-${adjustedLengthFirstArray}s %-${adjustedLengthSecondArray}s %-${adjustedLengthThirdArray}s${end_color}\n" \
             "${firstArray[i]}" "${secondArray[i]}" "${thirdArray[i]}"
     done
 }
 
 function enum_users() {
-    echo -e "\n${blue_colour}Enumerando usuarios en el servidor $SERVER_IP...${end_colour}"
+    echo -e "\n${blue_color}Enumerating users on the server $SERVER_IP...${end_color}"
     local users=()
 
     while IFS= read -r line; do
@@ -152,11 +152,11 @@ function enum_users() {
         fi
     done < <(rpcclient -U "$USERNAME%$PASSWORD" -c "enumdomusers" $SERVER_IP)
 
-    print_content users[@] "USUARIO"
+    print_content users[@] "USER"
 }
 
 function querydispinfo() {
-    echo -e "\n${blue_colour}Enumerando información sobre los usuarios en el despliegue en el servidor $SERVER_IP...${end_colour}"
+    echo -e "\n${blue_color}Enumerating user information in the deployment on the server $SERVER_IP...${end_color}"
     local accounts=()
     local names=()
     local descriptions=()
@@ -173,7 +173,7 @@ function querydispinfo() {
         fi
     done < <(rpcclient -U "$USERNAME%$PASSWORD" -c "querydispinfo" $SERVER_IP)
 
-    print_content accounts[@] "CUENTA" names[@] "NOMBRE" descriptions[@] "DESCRIPCIÓN"
+    print_content accounts[@] "ACCOUNT" names[@] "NAME" descriptions[@] "DESCRIPTION"
 }
 
 function enum_users_info() {
@@ -188,14 +188,14 @@ function enum_users_info() {
     done < <(rpcclient -U "$USERNAME%$PASSWORD" -c "enumdomusers" $SERVER_IP)
 
     for ((index=0; index<${#rids[@]}; index++)); do
-        echo -e "\n${blue_colour}Obteniendo información del usuario ${users[$index]} en el servidor $SERVER_IP...${end_colour}"
+        echo -e "\n${blue_color}Getting information for user ${users[$index]} on the server $SERVER_IP...${end_color}"
         local command=$(rpcclient -U "$USERNAME%$PASSWORD" -c "queryuser ${rids[$index]}" $SERVER_IP | sed 's/^[\t]*//')
-        echo -e "${green_bold_colour}${command}${end_colour}"
+        echo -e "${green_bold_color}${command}${end_color}"
     done
 }
 
 function enum_groups() {
-    echo -e "\n${blue_colour}Enumerando grupos en el servidor $SERVER_IP...${end_colour}"
+    echo -e "\n${blue_color}Enumerating groups on the server $SERVER_IP...${end_color}"
     local groups=()
     local rids=()
     local descriptions=()
@@ -217,11 +217,11 @@ function enum_groups() {
         done < <(rpcclient -U "$USERNAME%$PASSWORD" -c "querygroup $rid" $SERVER_IP)
     done
 
-    print_content groups[@] "GRUPO" descriptions[@] "DESCRIPCIÓN"
+    print_content groups[@] "GROUP" descriptions[@] "DESCRIPTION"
 }
 
 function enum_groups_and_users() {
-    echo -e "\n${blue_colour}Enumerando grupos y sus usuarios en el servidor $SERVER_IP...${end_colour}"
+    echo -e "\n${blue_color}Enumerate groups and their members on the server $SERVER_IP...${end_color}"
     local users=()
     local users_rid=()
     local groups=()
@@ -252,7 +252,7 @@ function enum_groups_and_users() {
         done
 
         if [ ${#users[@]} -ne 0 ]; then
-            echo -e "\n${blue_colour}Enumerando usuarios del grupo ${groups[$x]} en el servidor $SERVER_IP...${end_colour}"
+            echo -e "\n${blue_color}Enumerating users of the group ${groups[$x]} on the server $SERVER_IP...${end_color}"
             print_content users[@] "${groups[$x]}"
             users=()
             users_rid=()
@@ -261,7 +261,7 @@ function enum_groups_and_users() {
 }
 
 function enum_printers() {
-    echo -e "\n${blue_colour}Enumerando miembros de impresoras en el servidor $SERVER_IP...${end_colour}"
+    echo -e "\n${blue_color}Enumerating printer members on the server $SERVER_IP...${end_color}"
     local names=()
     local descriptions=()
     local comments=()
@@ -278,11 +278,11 @@ function enum_printers() {
         fi
     done < <(rpcclient -U "$USERNAME%$PASSWORD" -c "enumprinters" $SERVER_IP)
 
-    print_content names[@] "NOMBRE" descriptions[@] "DESCRIPCIÓN" comments[@] "COMENTARIOS"
+    print_content names[@] "NAME" descriptions[@] "DESCRIPTION" comments[@] "COMMENTS"
 }
 
 function enum_shares() {
-    echo -e "\n${blue_colour}Enumerando recursos compartidos en el servidor $SERVER_IP...${end_colour}"
+    echo -e "\n${blue_color}Enumerating shared resources on the server $SERVER_IP...${end_color}"
     local netnames=()
     local remarks=()
     local paths=()
@@ -302,23 +302,23 @@ function enum_shares() {
 
     done < <(rpcclient -U "$USERNAME%$PASSWORD" -c "netshareenumall" $SERVER_IP)
 
-    print_content netnames[@] "NOMBRE" paths[@] "RUTA" remarks[@] "DESCRIPCIÓN"
+    print_content netnames[@] "NAME" paths[@] "PATH" remarks[@] "DESCRIPTION"
 }
 
 function enum_password_policy() {
-    echo -e "\n${blue_colour}Enumerando políticas de contraseña en el servidor $SERVER_IP...${end_colour}"
+    echo -e "\n${blue_color}Enumerating password policies on the server $SERVER_IP...${end_color}"
     local command=$(rpcclient -U "$USERNAME%$PASSWORD" -c "getdompwinfo" $SERVER_IP)
-    echo -e "${green_bold_colour}${command}${end_colour}"
+    echo -e "${green_bold_color}${command}${end_color}"
 }
 
 function enum_server_info() {
-    echo -e "\n${blue_colour}Enumerando configuración del servidor $SERVER_IP...${end_colour}"
+    echo -e "\n${blue_color}Enumerating server configuration $SERVER_IP...${end_color}"
     local command=$(rpcclient -U "$USERNAME%$PASSWORD" -c "srvinfo" $SERVER_IP | sed 's/^[\t]*//')
-    echo -e "${green_bold_colour}${command}${end_colour}"
+    echo -e "${green_bold_color}${command}${end_color}"
 }
 
 function full_report() {
-    echo -e "\n${blue_colour}Generando informe completo para el servidor $SERVER_IP...${end_colour}"
+    echo -e "\n${blue_color}Generating full report for the server $SERVER_IP...${end_color}"
     enum_users
     querydispinfo
     enum_users_info
@@ -330,7 +330,7 @@ function full_report() {
     enum_server_info
 }
 
-# Ejecutar la función especificada
+# Execute the specified function
 case $FUNCTION in
     users) enum_users ;;
     querydispinfo) querydispinfo ;;
@@ -342,5 +342,5 @@ case $FUNCTION in
     password_policy) enum_password_policy ;;
     server_info) enum_server_info ;;
     full_report) full_report ;;
-    *) echo -e "${red_bold_colour}Función desconocida: $FUNCTION${end_colour}"; help_panel; exit 1 ;;
+    *) echo -e "${red_bold_color}Función desconocida: $FUNCTION${end_color}"; help_panel; exit 1 ;;
 esac
