@@ -1,19 +1,19 @@
 # RpcEnum
-Este script en Bash permite escanear de forma cómoda el servicio MSRPC
+This Bash script enables convenient scanning of the MSRPC service
 
-# Características
-- Enumerar usuarios del dominio
-- Enumerar información sobre usuarios del despliegue
-- Enumerar descripción, nombre completo, alias de los usuarios
-- Enumerar grupos
-- Enumerar grupos y sus respectivos usuarios
-- Enumerar impresoras
-- Enumerar recursos compartidos por smb
-- Enumerar política de contraseñas
-- Enumerar información del servidor
-- Imprimir un informe completo con todas las funciones anteriores
+# Features
+- Enumerate domain users
+- Enumerate user information from the deployment
+- Enumerate user description, full name, and alias
+- Enumerate groups
+- Enumerate groups and their respective users
+- Enumerate printers
+- Enumerate SMB shared resources
+- Enumerate password policy
+- Enumerate server information
+- Generate a comprehensive report with all the above functions
 
-# Uso
+# Usage
 ```
 git clone https://github.com/Justice-Reaper/rpcEnum.git
 cd rpcEnum
@@ -21,64 +21,64 @@ chmod +x rpcEnum.sh
 ./rpcEnum.sh
 ```
 
-# Panel de Ayuda
-Si usamos el script de forma incorrecta nos saltará un aviso y nos mostrará el panel de ayuda
+# Help Panel
+If the script is used incorrectly, a warning will appear, and the help panel will be displayed
 
 ![](/images/image_1.png)
 
-# Enumeración de Usuarios
-Utilización de los parámetros -u (username) y -p (password) para proporcionar unas credenciales 
+# User Enumeration
+Using the -u (username) and -p (password) parameters to provide credentials
 
 ![](/images/image_2.png)
 
-Enumerar sin usar credenciales, es decir con el usuario anonymous 
+Enumerate without credentials, i.e., with the anonymous user
 
 ![](/images/image_3.png)
 
-Otra alternativa sería dejar los campos -u (username) y -p (password) vacíos
+Another alternative is to leave the -u (username) and -p (password) fields empty
 
 ![](/images/image_4.png)
 
-Enumerar información sobre los usuario en el despliegue
+Enumerate user information in the deployment
 
 ![](/images/image_5.png)
 
-Enumerar toda la información posible de los usuarios
+Enumerate all possible user information
 
 ![](/images/image_6.png)
 
-# Enumeración de Grupos
-Enumerar los grupos y sus descripciones
+# Group Enumeration
+Enumerate groups and their descriptions
 
 ![](/images/image_7.png)
 
-Enumerar los grupos y los usuarios pertenecientes a cada uno de ellos
+Enumerate groups and the users belonging to each
 
 ![](/images/image_8.png)
 
-# Enumeración de impresoras
-Enumerar las impresoras
+# Printer Enumeration
+Enumerate printers
 
 ![](/images/image_9.png)
 
-# Enumeración Smb
-Enumerar los recursos compartidos por smb
+# SMB Enumeration
+Enumerate SMB shared resources
 
 ![](/images/image_10.png)
 
-# Enumeración de la Política de Contraseñas
-Enumerar la política de contraseñas
+# Password Policy Enumeration
+Enumerate the password policy
 
 ![](/images/image_11.png)
 
-# Enumeración del Servidor
-Enumerar información sobre el servidor
+# Server Enumeration
+Enumerate server information
 
 ![](/images/image_12.png)
 
-## Créditos
-Autor: Justice-Reaper  
+## Credits
+Author: Justice-Reaper  
 
-Inspiración: Herramienta basada en la creada por Zunder > [https://github.com/rubenza02/rpcenumeration.git](https://github.com/rubenza02/rpcenumeration.git)  
+Inspiration: Tool based on the one created by Zunder > [https://github.com/rubenza02/rpcenumeration.git](https://github.com/rubenza02/rpcenumeration.git)  
 
-Youtube: Enlace al vídeo de Zunder donde explica la utilidad de su herramienta > [https://youtu.be/gC6l4YA3Ue4?si=MFjejjpeVxMlbhjg](https://youtu.be/gC6l4YA3Ue4?si=MFjejjpeVxMlbhjg)
+YouTube: Link to Zunder’s video explaining the tool’s utility > [https://youtu.be/gC6l4YA3Ue4?si=MFjejjpeVxMlbhjg](https://youtu.be/gC6l4YA3Ue4?si=MFjejjpeVxMlbhjg)
