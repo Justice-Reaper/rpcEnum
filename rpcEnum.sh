@@ -1,5 +1,7 @@
 #!/bin/bash
 
+script_name=$(basename "$0")
+
 green_bold_color="\e[0;32m\033[1m"
 end_color="\033[0m\e[0m"
 red_bold_color="\e[0;31m\033[1m"
@@ -13,7 +15,7 @@ password=""
 function=""
 
 function help_panel() {
-    echo -e "\n${blue_bold_color}[*]${end_color}${white_bold_color} Usage: $0 -s <SERVER_IP> -u <USER> -p <PASSWORD> -f <FUNCTION>${end_color}"
+    echo -e "\n${blue_bold_color}[*]${end_color}${white_bold_color} Usage: $script_name -s <SERVER_IP> -u <USER> -p <PASSWORD> -f <FUNCTION>${end_color}"
     echo -e "\n${blue_bold_color}-h, --help                  ${end_color}${white_bold_color}Show this help menu${end_color}"
     echo -e "${blue_bold_color}-s, --server                ${end_color}${white_bold_color}Server IP address${end_color}"
     echo -e "${blue_bold_color}-u, --user                  ${end_color}${white_bold_color}User${end_color}"
