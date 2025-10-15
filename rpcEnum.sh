@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Colors
 green_bold_color="\e[0;32m\033[1m"
 end_color="\033[0m\e[0m"
 red_bold_color="\e[0;31m\033[1m"
@@ -8,13 +7,11 @@ blue_bold_color="\e[0;34m\033[1m"
 white_bold_color="\e[0;37m\033[1m"
 blue_color="\e[0;34m"
 
-# Variables
-SERVER_IP=""
-USERNAME=""
-PASSWORD=""
-FUNCTION=""
+server_ip=""
+username=""
+password=""
+function=""
 
-# Help function
 function help_panel() {
     echo -e "\n${blue_bold_color}[*]${end_color}${white_bold_color} Usage: $0 -s <SERVER_IP> -u <USER> -p <PASSWORD> -f <FUNCTION>${end_color}"
     echo -e "\n${blue_bold_color}-h, --help                  ${end_color}${white_bold_color}Show this help menu${end_color}"
@@ -35,27 +32,24 @@ function help_panel() {
     echo -e "    ${blue_bold_color}full_report             ${end_color}${white_bold_color}Generate full report${end_color}"
 }
 
-# Process arguments
 while [[ "$#" -gt 0 ]]; do
     case $1 in
 	-h|--help) help_panel; exit 0 ;;
-        -s|--server) SERVER_IP="$2"; shift ;;
-        -u|--user) USERNAME="$2"; shift ;;
-        -p|--password) PASSWORD="$2"; shift ;;
-        -f|--function) FUNCTION="$2"; shift ;;
+        -s|--server) server_ip="$2"; shift ;;
+        -u|--user) username="$2"; shift ;;
+        -p|--password) password="$2"; shift ;;
+        -f|--function) functions="$2"; shift ;;
         *) echo -e "${red_bold_color}Unknown option: $1${end_color}"; help_panel; exit 1 ;;
     esac
     shift
 done
 
-# Verify required arguments
-if [[ -z "$SERVER_IP" || -z "$FUNCTION" ]]; then
+if [[ -z "$server_ip" || -z "$function" ]]; then
     echo -e "${red_bold_color}Error: Missing required arguments${end_color}"
     help_panel
     exit 1
 fi
 
-# Functions
 function get_max_length() {
     local array=("$@")
     local max_length=$(printf "%s\n" "${array[@]}" | awk '{ print length }' | sort -nr | head -n1)
@@ -143,20 +137,20 @@ function print_content() {
 }
 
 function enum_users() {
-    echo -e "\n${blue_color}Enumerating users on the server $SERVER_IP...${end_color}"
+    echo -e "\n${blue_color}Enumerating users on the server $server_ip...${end_color}"
     local users=()
 
     while IFS= read -r line; do
         if [[ $line =~ user:\[([^\]]+)\] ]]; then
             users+=("${BASH_REMATCH[1]}")
         fi
-    done < <(rpcclient -U "$USERNAME%$PASSWORD" -c "enumdomusers" $SERVER_IP)
+    done < <(rpcclient -U "$username%$password" -c "enumdomusers" $server_ip)
 
     print_content users[@] "USER"
 }
 
 function querydispinfo() {
-    echo -e "\n${blue_color}Enumerating user information in the deployment on the server $SERVER_IP...${end_color}"
+    echo -e "\n${blue_color}Enumerating user information in the deployment on the server $server_ip...${end_color}"
     local accounts=()
     local names=()
     local descriptions=()
@@ -171,7 +165,7 @@ function querydispinfo() {
             names+=("$name")
             descriptions+=("$description")
         fi
-    done < <(rpcclient -U "$USERNAME%$PASSWORD" -c "querydispinfo" $SERVER_IP)
+    done < <(rpcclient -U "$username%$password" -c "querydispinfo" $server_ip)
 
     print_content accounts[@] "ACCOUNT" names[@] "NAME" descriptions[@] "DESCRIPTION"
 }
@@ -185,17 +179,17 @@ function enum_users_info() {
             users+=("${BASH_REMATCH[1]}")
             rids+=("${BASH_REMATCH[2]}")
         fi
-    done < <(rpcclient -U "$USERNAME%$PASSWORD" -c "enumdomusers" $SERVER_IP)
+    done < <(rpcclient -U "$username%$password" -c "enumdomusers" $server_ip)
 
     for ((index=0; index<${#rids[@]}; index++)); do
-        echo -e "\n${blue_color}Getting information for user ${users[$index]} on the server $SERVER_IP...${end_color}"
-        local command=$(rpcclient -U "$USERNAME%$PASSWORD" -c "queryuser ${rids[$index]}" $SERVER_IP | sed 's/^[\t]*//')
+        echo -e "\n${blue_color}Getting information for user ${users[$index]} on the server $server_ip...${end_color}"
+        local command=$(rpcclient -U "$username%$password" -c "queryuser ${rids[$index]}" $server_ip | sed 's/^[\t]*//')
         echo -e "${green_bold_color}${command}${end_color}"
     done
 }
 
 function enum_groups() {
-    echo -e "\n${blue_color}Enumerating groups on the server $SERVER_IP...${end_color}"
+    echo -e "\n${blue_color}Enumerating groups on the server $server_ip...${end_color}"
     local groups=()
     local rids=()
     local descriptions=()
@@ -205,7 +199,7 @@ function enum_groups() {
             groups+=("${BASH_REMATCH[1]}")
             rids+=("${BASH_REMATCH[2]}")
         fi
-    done < <(rpcclient -U "$USERNAME%$PASSWORD" -c "enumdomgroups" $SERVER_IP)
+    done < <(rpcclient -U "$username%$password" -c "enumdomgroups" $server_ip)
 
     for rid in "${rids[@]}"; do
         while IFS= read -r line; do
@@ -214,14 +208,14 @@ function enum_groups() {
             if [[ -n $line ]]; then
                 descriptions+=("$line")
             fi
-        done < <(rpcclient -U "$USERNAME%$PASSWORD" -c "querygroup $rid" $SERVER_IP)
+        done < <(rpcclient -U "$username%$password" -c "querygroup $rid" $server_ip)
     done
 
     print_content groups[@] "GROUP" descriptions[@] "DESCRIPTION"
 }
 
 function enum_groups_and_users() {
-    echo -e "\n${blue_color}Enumerate groups and their members on the server $SERVER_IP...${end_color}"
+    echo -e "\n${blue_color}Enumerate groups and their members on the server $server_ip...${end_color}"
     local users=()
     local users_rid=()
     local groups=()
@@ -232,14 +226,14 @@ function enum_groups_and_users() {
             groups+=("${BASH_REMATCH[1]}")
             groups_rid+=("${BASH_REMATCH[2]}")
         fi
-    done < <(rpcclient -U "$USERNAME%$PASSWORD" -c "enumdomgroups" "$SERVER_IP")
+    done < <(rpcclient -U "$username%$password" -c "enumdomgroups" "$server_ip")
 
     for ((x=0; x<${#groups_rid[@]}; x++)); do
         while IFS= read -r line; do
             if [[ $line =~ rid:\[([^\]]+)\] ]]; then
                 users_rid+=("${BASH_REMATCH[1]}")
             fi
-        done < <(rpcclient -U "$USERNAME%$PASSWORD" -c "querygroupmem ${groups_rid[$x]}" "$SERVER_IP")
+        done < <(rpcclient -U "$username%$password" -c "querygroupmem ${groups_rid[$x]}" "$server_ip")
 
         for ((y=0; y<${#users_rid[@]}; y++)); do
             while IFS= read -r line; do
@@ -248,11 +242,11 @@ function enum_groups_and_users() {
                 if [[ -n $line ]]; then
                     users+=("$line")
                 fi
-            done < <(rpcclient -U "$USERNAME%$PASSWORD" -c "queryuser ${users_rid[$y]}" $SERVER_IP)
+            done < <(rpcclient -U "$username%$password" -c "queryuser ${users_rid[$y]}" $server_ip)
         done
 
         if [ ${#users[@]} -ne 0 ]; then
-            echo -e "\n${blue_color}Enumerating users of the group ${groups[$x]} on the server $SERVER_IP...${end_color}"
+            echo -e "\n${blue_color}Enumerating users of the group ${groups[$x]} on the server $server_ip...${end_color}"
             print_content users[@] "${groups[$x]}"
             users=()
             users_rid=()
@@ -261,7 +255,7 @@ function enum_groups_and_users() {
 }
 
 function enum_printers() {
-    echo -e "\n${blue_color}Enumerating printer members on the server $SERVER_IP...${end_color}"
+    echo -e "\n${blue_color}Enumerating printer members on the server $server_ip...${end_color}"
     local names=()
     local descriptions=()
     local comments=()
@@ -276,13 +270,13 @@ function enum_printers() {
         elif [[ $line =~ comment:\[\s*([^\]]+?)\s*\] ]]; then
             comments+=("${BASH_REMATCH[1]}")
         fi
-    done < <(rpcclient -U "$USERNAME%$PASSWORD" -c "enumprinters" $SERVER_IP)
+    done < <(rpcclient -U "$username%$password" -c "enumprinters" $server_ip)
 
     print_content names[@] "NAME" descriptions[@] "DESCRIPTION" comments[@] "COMMENTS"
 }
 
 function enum_shares() {
-    echo -e "\n${blue_color}Enumerating shared resources on the server $SERVER_IP...${end_color}"
+    echo -e "\n${blue_color}Enumerating shared resources on the server $server_ip...${end_color}"
     local netnames=()
     local remarks=()
     local paths=()
@@ -300,25 +294,25 @@ function enum_shares() {
             paths+=("${BASH_REMATCH[1]}")
         fi
 
-    done < <(rpcclient -U "$USERNAME%$PASSWORD" -c "netshareenumall" $SERVER_IP)
+    done < <(rpcclient -U "$username%$password" -c "netshareenumall" $server_ip)
 
     print_content netnames[@] "NAME" paths[@] "PATH" remarks[@] "DESCRIPTION"
 }
 
 function enum_password_policy() {
-    echo -e "\n${blue_color}Enumerating password policies on the server $SERVER_IP...${end_color}"
-    local command=$(rpcclient -U "$USERNAME%$PASSWORD" -c "getdompwinfo" $SERVER_IP)
+    echo -e "\n${blue_color}Enumerating password policies on the server $server_ip...${end_color}"
+    local command=$(rpcclient -U "$username%$password" -c "getdompwinfo" $server_ip)
     echo -e "${green_bold_color}${command}${end_color}"
 }
 
 function enum_server_info() {
-    echo -e "\n${blue_color}Enumerating server configuration $SERVER_IP...${end_color}"
-    local command=$(rpcclient -U "$USERNAME%$PASSWORD" -c "srvinfo" $SERVER_IP | sed 's/^[\t]*//')
+    echo -e "\n${blue_color}Enumerating server configuration $server_ip...${end_color}"
+    local command=$(rpcclient -U "$username%$password" -c "srvinfo" $server_ip | sed 's/^[\t]*//')
     echo -e "${green_bold_color}${command}${end_color}"
 }
 
 function full_report() {
-    echo -e "\n${blue_color}Generating full report for the server $SERVER_IP...${end_color}"
+    echo -e "\n${blue_color}Generating full report for the server $server_ip...${end_color}"
     enum_users
     querydispinfo
     enum_users_info
@@ -330,8 +324,7 @@ function full_report() {
     enum_server_info
 }
 
-# Execute the specified function
-case $FUNCTION in
+case $function in
     users) enum_users ;;
     querydispinfo) querydispinfo ;;
     users_info) enum_users_info ;;
@@ -342,5 +335,5 @@ case $FUNCTION in
     password_policy) enum_password_policy ;;
     server_info) enum_server_info ;;
     full_report) full_report ;;
-    *) echo -e "${red_bold_color}Función desconocida: $FUNCTION${end_color}"; help_panel; exit 1 ;;
+    *) echo -e "${red_bold_color}Función desconocida: $function${end_color}"; help_panel; exit 1 ;;
 esac
